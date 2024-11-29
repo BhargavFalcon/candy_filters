@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/edit_screen/bindings/edit_screen_binding.dart';
+import '../modules/edit_screen/views/edit_screen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/splash_screen/bindings/splash_screen_binding.dart';
@@ -22,6 +24,11 @@ class AppPages {
       name: _Paths.SPLASH_SCREEN,
       page: () => const SplashScreenView(),
       binding: SplashScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_SCREEN,
+      page: () => const EditScreenView(),
+      binding: EditScreenBinding(),
     ),
   ];
 }

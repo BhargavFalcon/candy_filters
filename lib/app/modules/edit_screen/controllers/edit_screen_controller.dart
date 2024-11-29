@@ -1,10 +1,13 @@
-
+import 'package:candy_filters/constant/argumentConstant.dart';
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
+class EditScreenController extends GetxController {
   RxString profilePhoto = "".obs;
   @override
   void onInit() {
+    if (Get.arguments != null) {
+      profilePhoto.value = Get.arguments[ArgumentConstant.pickImage];
+    }
     super.onInit();
   }
 

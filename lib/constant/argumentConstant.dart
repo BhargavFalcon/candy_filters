@@ -1,3 +1,3 @@
 class ArgumentConstant {
-  static const categoryId = "categoryId";
+  static const pickImage = "pickImage";
 }

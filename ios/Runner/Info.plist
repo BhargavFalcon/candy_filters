@@ -34,6 +34,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+    <string>Candy Filters would like access your Camera So you can click pictures from the camera and edit them</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Candy Filters would like access your Camera So you can add photo to gallery</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Candy Filters would like access your photos So you can select pictures from gallery and edit them</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
