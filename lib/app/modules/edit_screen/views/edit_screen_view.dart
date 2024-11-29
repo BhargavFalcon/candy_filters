@@ -58,53 +58,57 @@ class EditScreenView extends GetView<EditScreenController> {
             ),
           ),
           Spacer(),
-          Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Positioned(
-                  child: Container(
-                height: MySize.getHeight(200),
-                color: Colors.black,
-              )),
-              Container(
-                height: MySize.getHeight(120),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(AppImage.bottom),
-                    fit: BoxFit.fill,
+          Container(
+            height: MySize.getHeight(200),
+            color: Colors.white,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Positioned(
+                    child: Container(
+                  height: MySize.getHeight(150),
+                  color: Colors.black,
+                )),
+                Container(
+                  height: MySize.getHeight(120),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(AppImage.bottom),
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Image.asset(
-                        AppImage.smile,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: Image.asset(
+                          AppImage.smile,
+                          height: MySize.getHeight(45),
+                        ),
+                      ),
+                      Image.asset(
+                        AppImage.text,
+                        height: MySize.getHeight(25),
+                      ),
+                      Image.asset(
+                        AppImage.text_ipad,
                         height: MySize.getHeight(45),
                       ),
-                    ),
-                    Image.asset(
-                      AppImage.text,
-                      height: MySize.getHeight(25),
-                    ),
-                    Image.asset(
-                      AppImage.text_ipad,
-                      height: MySize.getHeight(45),
-                    ),
-                    Image.asset(
-                      AppImage.download_ipad,
-                      height: MySize.getHeight(45),
-                    ),
-                    Image.asset(
-                      AppImage.Share_Edit_ipad,
-                      height: MySize.getHeight(45),
-                    ),
-                  ],
+                      Image.asset(
+                        AppImage.download_ipad,
+                        height: MySize.getHeight(45),
+                      ),
+                      Image.asset(
+                        AppImage.Share_Edit_ipad,
+                        height: MySize.getHeight(45),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
