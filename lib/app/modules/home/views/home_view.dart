@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../routes/app_pages.dart';
@@ -63,7 +64,14 @@ class HomeView extends GetWidget<HomeController> {
                         }
                       });
                     }),
-                    imageWidget(AppImage.share),
+                    imageWidget(
+                      AppImage.share,
+                      onTap: () {
+                        String text =
+                            "More than 800+ emojis, filters and stickers. Download Candy Photo Filters & Stickers now:${Platform.isIOS ? "https://itunes.apple.com/us/app/id1189494806?ls=1&mt=8" : "https://play.google.com/store/apps/details?id=com.rohit.snappy&hl=en-IN"}";
+                        Share.share(text);
+                      },
+                    ),
                   ],
                 ),
                 Row(
