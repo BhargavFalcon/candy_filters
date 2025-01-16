@@ -3,7 +3,7 @@ const aboutImagePath = "assets/About Us/";
 const categoryImagePath = "assets/Category/";
 const homeImagePath = "assets/home/";
 const editImagePath = "assets/Edit Photo/";
-const stickers1ImagePath = "assets/stickers/1/";
+const stickersImagePath = "assets/stickers/";
 
 class AppImage {
   static const loadGif = imagePath + "Load_GIf.gif";
@@ -21,6 +21,11 @@ class AppImage {
   static const smile = editImagePath + "smile_ipad.png";
   static const text = editImagePath + "text.png";
   static const text_ipad = editImagePath + "text_ipad.png";
+  static const colorBar = editImagePath + "Color_Bar.png";
   static const download_ipad = editImagePath + "download_ipad.png";
   static const Share_Edit_ipad = editImagePath + "Share_Edit_ipad.png";
+  static const close = editImagePath + "close.png";
+  static const flip = editImagePath + "flip.png";
+  static const resize = editImagePath + "resize.png";
+  static const rotate_scale = editImagePath + "rotate_scale.png";
 }

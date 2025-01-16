@@ -8,37 +8,10 @@ class BaseTheme {
   Color get lightGreyColor => fromHex("#BDBFC4");
   Color get white => fromHex("#FFFFFF");
   Color get black => fromHex("#000000");
-  Color get backgroundDarkColor_020617 => fromHex("#020617");
-  Color get testBackgroundColor_64748B => fromHex("#64748B");
-  Color get borderColor_E2E8F0 => fromHex("#E2E8F0");
-  Color get backgroundColor_F1F5F9 => fromHex("#F1F5F9");
-  Color get backgroundColor_EEF2FE => fromHex("#EEF2FE");
-  Color get backgroundColor_E2E8F0 => fromHex("#E2E8F0");
-  Color get subHeadingColor_334155 => fromHex("#334155");
-  Color get cardBackgroundColor_F8FAFC => fromHex("#F3F4F5");
-  Color get warningColor => fromHex("#EF4444");
-  Color get successColor => fromHex("#10B981");
-  Color get black_020617 => fromHex("#020617");
-  Color get green_052E16 => fromHex("#052E16");
-  Color get green_22C55E => fromHex("#22C55E");
-  Color get green_55C25E => fromHex("#55C25E");
-  Color get green_10B981 => fromHex("#10B981");
-  Color get grey_64748B => fromHex("#64748B");
-  Color get grey_94A3B8 => fromHex("#94A3B8");
-  Color get grey_E2E8F0 => fromHex("#E2E8F0");
-  Color get grey_F3F4F5 => fromHex("#F3F4F5");
-  Color get grey_CBD5E1 => fromHex("#CBD5E1");
-  Color get purple => fromHex("#A314D5");
-  Color get red => fromHex("#EF4444");
-  Color get grey_334155 => fromHex("#334155");
-  Color get shadowColor_172C41 => fromHex("#172C41");
-  Color get orange_F97316 => fromHex("#F97316");
-  Color get yellow_F99C21 => fromHex("#F99C21");
-  Color get yellow_EAB308 => fromHex("#EAB308");
-  Color get yellow_F97316 => fromHex("#F97316");
-  Color get red_F4646F => fromHex("#F4646F");
-  Color get blue_122B69 => fromHex("#122B69");
-  Color get royal_337AB7 => fromHex("#337AB7");
+  Color get bottomColor => fromHex("#f05c7f");
+  Color get backgroundColor => fromHex("#F9A8B4");
+  Color get appBarColor => fromHex("#080A52");
+  Color get yellow => Colors.yellow;
 
   List<BoxShadow> get getShadow {
     return [
@@ -112,29 +85,6 @@ class BaseTheme {
       ],
     );
   }
-
-  List<BoxShadow> get decoratedContainerShadow {
-    return [
-      BoxShadow(
-        offset: Offset(0, 0),
-        color: blue_122B69.withOpacity(0.08),
-        blurRadius: MySize.getHeight(0),
-        spreadRadius: MySize.getHeight(1),
-      ),
-      BoxShadow(
-        offset: Offset(0, 1),
-        color: blue_122B69.withOpacity(0.08),
-        blurRadius: MySize.getHeight(2),
-        spreadRadius: MySize.getHeight(0),
-      ),
-      BoxShadow(
-        offset: Offset(0, 2),
-        color: blue_122B69.withOpacity(0.04),
-        blurRadius: MySize.getHeight(6),
-        spreadRadius: MySize.getHeight(0),
-      ),
-    ];
-  }
 }
 
 BaseTheme get appTheme => BaseTheme();
@@ -147,7 +97,11 @@ Color fromHex(String hexString) {
 }
 
 extension StringCasingExtension on String {
-  String toCapitalized() => length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
 
-  String toTitleCase() => replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((str) => str.toCapitalized())
+      .join(' ');
 }

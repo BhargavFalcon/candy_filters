@@ -3,7 +3,6 @@ import 'package:candy_filters/constant/image_constants.dart';
 import 'package:candy_filters/constant/sizeConstant.dart';
 import 'package:candy_filters/service/CameraService.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -40,9 +39,9 @@ class HomeView extends GetWidget<HomeController> {
                           if (value != null) {
                             controller.profilePhoto.value = value.path;
                             print(controller.profilePhoto.value);
-                            Get.offAllNamed(Routes.EDIT_SCREEN, arguments: {
+                            Get.toNamed(Routes.EDIT_SCREEN, arguments: {
                               ArgumentConstant.pickImage:
-                              controller.profilePhoto.value,
+                                  controller.profilePhoto.value,
                             });
                           }
                         });
@@ -53,7 +52,7 @@ class HomeView extends GetWidget<HomeController> {
                         if (value != null) {
                           controller.profilePhoto.value = value.path;
                           print(controller.profilePhoto.value);
-                          Get.offAllNamed(Routes.EDIT_SCREEN, arguments: {
+                          Get.toNamed(Routes.EDIT_SCREEN, arguments: {
                             ArgumentConstant.pickImage:
                                 controller.profilePhoto.value,
                           });

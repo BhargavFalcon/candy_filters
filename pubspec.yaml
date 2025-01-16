@@ -65,6 +65,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/fonts/
     - assets/About Us/
     - assets/Category/
     - assets/Edit Photo/
@@ -91,4 +92,128 @@ flutter:
     - assets/stickers/20/
     - assets/stickers/21/
     - assets/stickers/22/
+
+
+  fonts:
+    - family: AdventurerBlack
+      fonts:
+        - asset: assets/fonts/Adventurer_Black.ttf
+    - family: AileronsTypeFace
+      fonts:
+        - asset: assets/fonts/Ailerons_Typeface.ttf
+    - family: Arciform
+      fonts:
+        - asset: assets/fonts/Arciform.ttf
+    - family: Athene
+      fonts:
+        - asset: assets/fonts/Athene.ttf
+    - family: Balloon
+      fonts:
+        - asset: assets/fonts/Balloon.ttf
+    - family: Bangers
+      fonts:
+        - asset: assets/fonts/Bangers.ttf
+    - family: BoulevardSaintDenis
+      fonts:
+        - asset: assets/fonts/Boulevard_Saint_Denis.ttf
+    - family: BreakBold
+      fonts:
+        - asset: assets/fonts/Break_Bold.ttf
+    - family: BreakRegular
+      fonts:
+        - asset: assets/fonts/Break_Regular.ttf
+    - family: BreakSemibold
+      fonts:
+        - asset: assets/fonts/Break_Semibold.ttf
+    - family: ChampagneLimousines
+      fonts:
+        - asset: assets/fonts/Champagne_Limousines.ttf
+    - family: ChampagneLimousinesBold
+      fonts:
+        - asset: assets/fonts/Champagne_Limousines_Bold.ttf
+    - family: Cookie
+      fonts:
+        - asset: assets/fonts/Cookie.ttf
+    - family: EliantoRegular
+      fonts:
+        - asset: assets/fonts/Elianto_Regular.ttf
+    - family: ExodusDemoRegular
+      fonts:
+        - asset: assets/fonts/ExodusDemo_Regular.ttf
+    - family: ExodusDemoSharpen
+      fonts:
+        - asset: assets/fonts/ExodusDemo_Sharpen.ttf
+    - family: ExodusDemoShino
+      fonts:
+        - asset: assets/fonts/ExodusDemo_Shino.ttf
+    - family: ExodusDemoStencil
+      fonts:
+        - asset: assets/fonts/ExodusDemo_Stencil.ttf
+    - family: ExodusDemoStriped
+      fonts:
+        - asset: assets/fonts/ExodusDemo_Striped.ttf
+    - family: IntroHeadRBase
+      fonts:
+        - asset: assets/fonts/IntroHeadR_Base.ttf
+    - family: IntroRustGBase2Line
+      fonts:
+        - asset: assets/fonts/IntroRustG_Base2Line.ttf
+    - family: IntroScriptR_H2Base
+      fonts:
+        - asset: assets/fonts/IntroScriptR_H2Base.ttf
+    - family: KittenFat
+      fonts:
+        - asset: assets/fonts/Kitten_Fat_trial.ttf
+    - family: KittenSlantMonoline
+      fonts:
+        - asset: assets/fonts/Kitten_Slant_Monoline_trial.ttf
+    - family: KittenSwash
+      fonts:
+        - asset: assets/fonts/Kitten_Swash_trial.ttf
+    - family: KolikoBold
+      fonts:
+        - asset: assets/fonts/Koliko_Bold.ttf
+    - family: KolikoLight
+      fonts:
+        - asset: assets/fonts/Koliko_Light.ttf
+    - family: KolikoRegular
+      fonts:
+        - asset: assets/fonts/Koliko_Regular.ttf
+    - family: LakesightPersonalUseOnly
+      fonts:
+        - asset: assets/fonts/Lakesight_PersonalUseOnly.ttf
+    - family: LeoscarSansSerif
+      fonts:
+        - asset: assets/fonts/Leoscar_Sans_Serif.ttf
+    - family: LeoscarSerif
+      fonts:
+        - asset: assets/fonts/Leoscar_Serif.ttf
+    - family: LiyaScriptOne
+      fonts:
+        - asset: assets/fonts/Liya_script_one.ttf
+    - family: LuckiestGuy
+      fonts:
+        - asset: assets/fonts/Luckiest_guy.ttf
+    - family: LuxiaRegular
+      fonts:
+        - asset: assets/fonts/Luxia_Regular.ttf
+    - family: NemoNightmares
+      fonts:
+        - asset: assets/fonts/Nemo_Nightmares.ttf
+    - family: PainterPersonalUseOnly
+      fonts:
+        - asset: assets/fonts/Painter_PERSONAL_USE_ONLY.ttf
+    - family: Precious
+      fonts:
+        - asset: assets/fonts/Precious.ttf
+    - family: ShadedLarch
+      fonts:
+        - asset: assets/fonts/ShadedLarch_PERSONAL_USE.ttf
+    - family: VictorianLTE
+      fonts:
+        - asset: assets/fonts/victorian_LTE.ttf
+    - family: WildYouthRegular
+      fonts:
+        - asset: assets/fonts/WildYouth_Regular.ttf
+
 
