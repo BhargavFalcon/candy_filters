@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:candy_filters/constant/argumentConstant.dart';
 import 'package:candy_filters/constant/image_constants.dart';
 import 'package:candy_filters/constant/sizeConstant.dart';
@@ -5,6 +7,8 @@ import 'package:candy_filters/service/CameraService.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
@@ -59,16 +63,37 @@ class HomeView extends GetWidget<HomeController> {
                         }
                       });
                     }),
-                    imageWidget(AppImage.share),
+                    imageWidget(
+                      AppImage.share,
+                      onTap: () {
+                        String text =
+                            "More than 800+ emojis, filters and stickers. Download Candy Photo Filters & Stickers now:${Platform.isIOS ? "https://itunes.apple.com/us/app/id1189494806?ls=1&mt=8" : "https://play.google.com/store/apps/details?id=com.rohit.snappy&hl=en-IN"}";
+                        Share.share(text);
+                      },
+                    ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    imageWidget(AppImage.about),
-                    imageWidget(AppImage.moreApps),
-                    imageWidget(AppImage.rateUs),
+                    imageWidget(AppImage.about, onTap: () {
+                      Get.toNamed(Routes.ABOUT_SCREEN);
+                    }),
+                    imageWidget(
+                      AppImage.moreApps,
+                      onTap: () {
+                        launchUrl(Uri.parse(Platform.isIOS
+                            ? ArgumentConstant.iosAccountLink
+                            : ArgumentConstant.androidAccountLink));
+                      },
+                    ),
+                    imageWidget(
+                      AppImage.rateUs,
+                      onTap: () {
+                        controller.rateMyApp.launchStore();
+                      },
+                    ),
                   ],
                 ),
               ],
