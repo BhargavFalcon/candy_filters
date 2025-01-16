@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:candy_filters/constant/argumentConstant.dart';
 import 'package:candy_filters/constant/image_constants.dart';
 import 'package:candy_filters/constant/sizeConstant.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
@@ -42,7 +45,7 @@ class HomeView extends GetWidget<HomeController> {
                             print(controller.profilePhoto.value);
                             Get.offAllNamed(Routes.EDIT_SCREEN, arguments: {
                               ArgumentConstant.pickImage:
-                              controller.profilePhoto.value,
+                                  controller.profilePhoto.value,
                             });
                           }
                         });
@@ -68,8 +71,20 @@ class HomeView extends GetWidget<HomeController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     imageWidget(AppImage.about),
-                    imageWidget(AppImage.moreApps),
-                    imageWidget(AppImage.rateUs),
+                    imageWidget(
+                      AppImage.moreApps,
+                      onTap: () {
+                        launchUrl(Uri.parse(Platform.isIOS
+                            ? ArgumentConstant.iosAccountLink
+                            : ArgumentConstant.androidAccountLink));
+                      },
+                    ),
+                    imageWidget(
+                      AppImage.rateUs,
+                      onTap: () {
+                        controller.rateMyApp.launchStore();
+                      },
+                    ),
                   ],
                 ),
               ],
