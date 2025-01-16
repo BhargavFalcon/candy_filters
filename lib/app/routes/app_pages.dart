@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/about_screen/bindings/about_screen_binding.dart';
+import '../modules/about_screen/views/about_screen_view.dart';
 import '../modules/edit_screen/bindings/edit_screen_binding.dart';
 import '../modules/edit_screen/views/edit_screen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.EDIT_SCREEN,
       page: () => const EditScreenView(),
       binding: EditScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABOUT_SCREEN,
+      page: () => const AboutScreenView(),
+      binding: AboutScreenBinding(),
     ),
   ];
 }

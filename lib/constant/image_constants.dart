@@ -15,6 +15,14 @@ class AppImage {
   static const moreApps = homeImagePath + "More_Apps.png";
   static const rateUs = homeImagePath + "Rate.png";
   static const homeBg = homeImagePath + "home_bg.png";
+  static const aboutBg = aboutImagePath + "About_Bg.png";
+  static const appIcon = aboutImagePath + "App_Icon.png";
+  static const logo_text = aboutImagePath + "logo_text.png";
+  static const facebook = aboutImagePath + "facebook.png";
+  static const linkedin = aboutImagePath + "linkedin.png";
+  static const twitter = aboutImagePath + "twitter.png";
+  static const line = aboutImagePath + "line.png";
+
   static const back = editImagePath + "back_ipad.png";
   static const eraser = editImagePath + "Eraser_ipad.png";
   static const bottom = editImagePath + "Bottom.png";

@@ -78,7 +78,9 @@ class HomeView extends GetWidget<HomeController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    imageWidget(AppImage.about),
+                    imageWidget(AppImage.about, onTap: () {
+                      Get.toNamed(Routes.ABOUT_SCREEN);
+                    }),
                     imageWidget(
                       AppImage.moreApps,
                       onTap: () {
