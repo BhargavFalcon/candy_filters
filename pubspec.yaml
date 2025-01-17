@@ -45,6 +45,10 @@ dependencies:
   rate_my_app: ^2.2.0
   share_plus: ^10.1.4
   package_info_plus: ^8.1.1
+  scroll_screenshot: ^0.0.4
+  path_provider: ^2.1.5
+  saver_gallery: ^4.0.1
+  fluttertoast: ^8.2.10
 
 dev_dependencies:
   flutter_test:

@@ -1,10 +1,15 @@
+import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:candy_filters/constant/argumentConstant.dart';
 import 'package:candy_filters/constant/sizeConstant.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:saver_gallery/saver_gallery.dart';
 
 import '../../../../constant/image_constants.dart';
 
@@ -83,6 +88,8 @@ class EditScreenController extends GetxController {
     'VictorianLTE',
     'WildYouthRegular',
   ];
+
+  GlobalKey<OverRepaintBoundaryState> globalKey = GlobalKey();
   ui.Image? image;
   List<FocusNode> focusNodes = List.generate(22, (index) => FocusNode());
   @override
@@ -140,6 +147,46 @@ class EditScreenController extends GetxController {
       stickerList[index].fontColor!.value = Color.fromARGB(a, r, g, b);
     }
   }
+
+  Future<void> downloadImage({required Uint8List image}) async {
+    await Permission.photos.request();
+    Permission.storage.request();
+
+    String path = (Platform.isIOS)
+        ? (await getDownloadsDirectory())!.path +
+            "/CandyFilters/${DateTime.now().millisecondsSinceEpoch}.png"
+        : '/storage/emulated/0/Download/CandyFilters/${DateTime.now().millisecondsSinceEpoch}.png';
+    print(path);
+    if (Directory("/storage/emulated/0/Download/CandyFilters/").existsSync()) {
+      print("Directory exists");
+    } else {
+      if (Platform.isAndroid) {
+        print("Directory not exists");
+        Directory("/storage/emulated/0/Download/CandyFilters/")
+            .createSync(recursive: true);
+      }
+    }
+
+    String imageName =
+        "CandyFilters_${DateTime.now().millisecondsSinceEpoch}.jpg";
+
+    final result = await SaverGallery.saveImage(
+      image,
+      fileName: imageName,
+      androidRelativePath: "Pictures/CandyFilters/",
+      skipIfExists: true,
+    );
+    hideCircularDialog(Get.context!);
+    Fluttertoast.showToast(
+      msg: "Image saved successfully",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+    print(result.toString());
+  }
 }
 
 class StickerModel {
@@ -178,4 +225,21 @@ class TextListModel {
     this.showBackground,
     this.fontColor,
   });
+}
+
+class OverRepaintBoundary extends StatefulWidget {
+  final Widget child;
+
+  const OverRepaintBoundary({required Key key, required this.child})
+      : super(key: key);
+
+  @override
+  OverRepaintBoundaryState createState() => OverRepaintBoundaryState();
+}
+
+class OverRepaintBoundaryState extends State<OverRepaintBoundary> {
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
 }

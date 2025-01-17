@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:candy_filters/constant/image_constants.dart';
 import 'package:candy_filters/constant/sizeConstant.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -92,60 +91,25 @@ class AboutScreenView extends GetView<AboutScreenController> {
                       launchUrl(
                           Uri.parse("http://facebook.com/falconsolutions/"));
                     },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          AppImage.facebook,
-                          height: MySize.getHeight(70),
-                        ),
-                        Image.asset(
-                          AppImage.line,
-                          height: MySize.getHeight(80),
-                        ),
-                      ],
-                    ),
+                    child: imageWidget(image: AppImage.facebook),
                   ),
                   SizedBox(
                     width: MySize.getWidth(20),
                   ),
                   InkWell(
-                    onTap: () {
-                      launchUrl(Uri.parse("https://twitter.com/FalconSolCo"));
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          AppImage.twitter,
-                          height: MySize.getHeight(70),
-                        ),
-                        Image.asset(
-                          AppImage.line,
-                          height: MySize.getHeight(80),
-                        ),
-                      ],
-                    ),
-                  ),
+                      onTap: () {
+                        launchUrl(Uri.parse("https://twitter.com/FalconSolCo"));
+                      },
+                      child: imageWidget(image: AppImage.twitter)),
                   SizedBox(
                     width: MySize.getWidth(20),
                   ),
                   InkWell(
-                    onTap: () {
-                      launchUrl(Uri.parse(
-                          "https://www.linkedin.com/company/falcon-solutions-m-s"));
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          AppImage.linkedin,
-                          height: MySize.getHeight(70),
-                        ),
-                        Image.asset(
-                          AppImage.line,
-                          height: MySize.getHeight(80),
-                        ),
-                      ],
-                    ),
-                  )
+                      onTap: () {
+                        launchUrl(Uri.parse(
+                            "https://www.linkedin.com/company/falcon-solutions-m-s"));
+                      },
+                      child: imageWidget(image: AppImage.linkedin))
                 ],
               ),
             ),
@@ -153,5 +117,28 @@ class AboutScreenView extends GetView<AboutScreenController> {
         ),
       );
     });
+  }
+
+  Widget imageWidget({required String image}) {
+    return SizedBox(
+      height: 150,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Image.asset(
+            image,
+            height: MySize.getHeight(70),
+            width: MySize.getHeight(70),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Image.asset(
+              AppImage.line,
+              height: MySize.getHeight(80),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

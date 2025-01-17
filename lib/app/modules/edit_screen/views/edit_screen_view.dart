@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:candy_filters/app/modules/edit_screen/views/imageViewWidget.dart';
@@ -8,7 +10,11 @@ import 'package:candy_filters/constant/sizeConstant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:scroll_screenshot/scroll_screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../controllers/edit_screen_controller.dart';
 
@@ -78,114 +84,134 @@ class EditScreenView extends GetView<EditScreenController> {
                 body: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
-                    Center(
-                      child: Image.file(
-                        File(
-                          controller.profilePhoto.value,
-                        ),
-                        height: double.infinity,
-                        width: double.infinity,
-                      ),
-                    ),
-                    Container(
-                      child: InkWell(
-                        onTap: () {
-                          for (int i = 0;
-                              i < controller.stickerList.length;
-                              i++) {
-                            controller.stickerList[i].isSelected!.value = false;
-                            controller.stickerList[i].isEdit?.value = false;
-                          }
-                          controller.isKeyBordHide.value = false;
-                          controller.isFontsVisible.value = false;
-                          controller.isColorVisible.value = false;
-                        },
-                        child: Obx(
-                          () => Stack(
-                            children: List.generate(
-                                controller.stickerList.length, (index) {
-                              final data = controller.stickerList[index];
-                              if (isNullEmptyOrFalse(data.offset)) {
-                                data.offset!.value = Offset.zero;
-                              }
-                              return Positioned(
-                                left: data.offset!.value.dx,
-                                top: data.offset!.value.dy,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (controller.stickerList[index]
-                                            .isSelected!.isTrue &&
-                                        data.isImage != true) {
-                                      controller.stickerList[index].isEdit =
-                                          true.obs;
-                                      controller.stickerList.refresh();
-                                      data.focusNode!.requestFocus();
-                                      controller.update();
-                                      controller.isKeyBordHide.value = false;
-                                    } else {
-                                      for (int i = 0;
-                                          i < controller.stickerList.length;
-                                          i++) {
-                                        controller.stickerList[i].isSelected!
-                                            .value = i == index;
-                                      }
-                                    }
-                                  },
-                                  onPanUpdate: (details) {
-                                    if (data.isSelected!.isTrue) {
-                                      data.offset!.value = Offset(
-                                          data.offset!.value.dx +
-                                              details.delta.dx,
-                                          data.offset!.value.dy +
-                                              details.delta.dy);
-                                    }
-                                  },
-                                  child: Container(
-                                    height: MySize.getHeight(400),
-                                    width: MySize.getWidth(360),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Center(
-                                        child: (data.isImage ?? false)
-                                            ? ImageViewWidget(
-                                                title: data.title!,
-                                                onTap: () {
-                                                  controller.stickerList
-                                                      .removeWhere((item) {
-                                                    return item.uid == data.uid;
-                                                  });
-                                                },
-                                                fontSize: data.fontSize,
-                                                isSelect:
-                                                    data.isSelected!.value)
-                                            : TextViewWidget(
-                                                title: data.title!,
-                                                onTap: () {
-                                                  controller.stickerList
-                                                      .removeWhere((item) {
-                                                    return item.uid == data.uid;
-                                                  });
-                                                },
-                                                isEdit:
-                                                    data.isEdit?.value ?? false,
-                                                isSelect:
-                                                    data.isSelected!.value,
-                                                fontSize: data.fontSize,
-                                                opacity: data.opacity,
-                                                fontFamily: data.fontFamily,
-                                                fontColor: data.fontColor,
-                                                focusNode: data.focusNode,
-                                                showBackground:
-                                                    data.showBackground,
-                                              ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
+                    RepaintBoundary(
+                      key: controller.globalKey,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Image.file(
+                              File(
+                                controller.profilePhoto.value,
+                              ),
+                              height: double.infinity,
+                              width: double.infinity,
+                            ),
                           ),
-                        ),
+                          Container(
+                            child: InkWell(
+                              onTap: () {
+                                for (int i = 0;
+                                    i < controller.stickerList.length;
+                                    i++) {
+                                  controller.stickerList[i].isSelected!.value =
+                                      false;
+                                  controller.stickerList[i].isEdit?.value =
+                                      false;
+                                }
+                                controller.isKeyBordHide.value = false;
+                                controller.isFontsVisible.value = false;
+                                controller.isColorVisible.value = false;
+                              },
+                              child: Obx(
+                                () => Stack(
+                                  children: List.generate(
+                                      controller.stickerList.length, (index) {
+                                    final data = controller.stickerList[index];
+                                    if (isNullEmptyOrFalse(data.offset)) {
+                                      data.offset!.value = Offset.zero;
+                                    }
+                                    return Positioned(
+                                      left: data.offset!.value.dx,
+                                      top: data.offset!.value.dy,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          if (controller.stickerList[index]
+                                                  .isSelected!.isTrue &&
+                                              data.isImage != true) {
+                                            controller.stickerList[index]
+                                                .isEdit = true.obs;
+                                            controller.stickerList.refresh();
+                                            data.focusNode!.requestFocus();
+                                            controller.update();
+                                            controller.isKeyBordHide.value =
+                                                false;
+                                          } else {
+                                            for (int i = 0;
+                                                i <
+                                                    controller
+                                                        .stickerList.length;
+                                                i++) {
+                                              controller
+                                                  .stickerList[i]
+                                                  .isSelected!
+                                                  .value = i == index;
+                                            }
+                                          }
+                                        },
+                                        onPanUpdate: (details) {
+                                          if (data.isSelected!.isTrue) {
+                                            data.offset!.value = Offset(
+                                                data.offset!.value.dx +
+                                                    details.delta.dx,
+                                                data.offset!.value.dy +
+                                                    details.delta.dy);
+                                          }
+                                        },
+                                        child: Container(
+                                          height: MySize.getHeight(400),
+                                          width: MySize.getWidth(360),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Center(
+                                              child: (data.isImage ?? false)
+                                                  ? ImageViewWidget(
+                                                      title: data.title!,
+                                                      onTap: () {
+                                                        controller.stickerList
+                                                            .removeWhere(
+                                                                (item) {
+                                                          return item.uid ==
+                                                              data.uid;
+                                                        });
+                                                      },
+                                                      fontSize: data.fontSize,
+                                                      isSelect: data
+                                                          .isSelected!.value)
+                                                  : TextViewWidget(
+                                                      title: data.title!,
+                                                      onTap: () {
+                                                        controller.stickerList
+                                                            .removeWhere(
+                                                                (item) {
+                                                          return item.uid ==
+                                                              data.uid;
+                                                        });
+                                                      },
+                                                      isEdit:
+                                                          data.isEdit?.value ??
+                                                              false,
+                                                      isSelect: data
+                                                          .isSelected!.value,
+                                                      fontSize: data.fontSize,
+                                                      opacity: data.opacity,
+                                                      fontFamily:
+                                                          data.fontFamily,
+                                                      fontColor: data.fontColor,
+                                                      focusNode: data.focusNode,
+                                                      showBackground:
+                                                          data.showBackground,
+                                                    ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     AnimatedSwitcher(
@@ -527,6 +553,9 @@ class EditScreenView extends GetView<EditScreenController> {
                                 children: [
                                   InkWell(
                                     onTap: () {
+                                      controller.stickerList.forEach((element) {
+                                        element.isSelected!.value = false;
+                                      });
                                       controller.isStickerVisible.toggle();
                                       if (controller.isStickerVisible.isTrue)
                                         Future.delayed(
@@ -550,6 +579,9 @@ class EditScreenView extends GetView<EditScreenController> {
                                   ),
                                   InkWell(
                                     onTap: () {
+                                      controller.stickerList.forEach((element) {
+                                        element.isSelected!.value = false;
+                                      });
                                       controller.isStickerVisible.value = false;
                                       controller.stickerList.add(TextListModel(
                                         title: TextEditingController(
@@ -577,6 +609,9 @@ class EditScreenView extends GetView<EditScreenController> {
                                   ),
                                   InkWell(
                                     onTap: () {
+                                      controller.stickerList.forEach((element) {
+                                        element.isSelected!.value = false;
+                                      });
                                       controller.isStickerVisible.value = false;
                                       controller.stickerList.add(TextListModel(
                                         title: TextEditingController(
@@ -601,13 +636,84 @@ class EditScreenView extends GetView<EditScreenController> {
                                       height: MySize.getHeight(45),
                                     ),
                                   ),
-                                  Image.asset(
-                                    AppImage.download_ipad,
-                                    height: MySize.getHeight(45),
+                                  InkWell(
+                                    onTap: () async {
+                                      showCircularDialog(Get.context!);
+
+                                      controller.stickerList.forEach((element) {
+                                        element.isSelected!.value = false;
+                                      });
+                                      String? base64String =
+                                          await ScrollScreenshot
+                                              .captureAndSaveScreenshot(
+                                                  controller.globalKey);
+
+                                      if (base64String == null) {
+                                        log("Screenshot failed.");
+                                        hideCircularDialog(Get.context!);
+                                        Fluttertoast.showToast(
+                                          msg:
+                                              "Something went wrong please try again",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          backgroundColor: Colors.black,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0,
+                                        );
+                                        return;
+                                      }
+                                      final bytes = base64Decode(base64String);
+                                      controller.downloadImage(image: bytes);
+                                    },
+                                    child: Image.asset(
+                                      AppImage.download_ipad,
+                                      height: MySize.getHeight(45),
+                                    ),
                                   ),
-                                  Image.asset(
-                                    AppImage.Share_Edit_ipad,
-                                    height: MySize.getHeight(45),
+                                  InkWell(
+                                    onTap: () async {
+                                      showCircularDialog(Get.context!);
+
+                                      controller.stickerList.forEach((element) {
+                                        element.isSelected!.value = false;
+                                      });
+                                      String? base64String =
+                                          await ScrollScreenshot
+                                              .captureAndSaveScreenshot(
+                                                  controller.globalKey);
+
+                                      if (base64String == null) {
+                                        log("Screenshot failed.");
+                                        hideCircularDialog(Get.context!);
+                                        Fluttertoast.showToast(
+                                          msg:
+                                              "Something went wrong please try again",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          backgroundColor: Colors.black,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0,
+                                        );
+                                        return;
+                                      }
+                                      final bytes = base64Decode(base64String);
+
+                                      final directory =
+                                          await getApplicationCacheDirectory();
+                                      final imagePath = File(
+                                          '${directory.path}/${DateTime.now().millisecondsSinceEpoch}.png');
+                                      await imagePath.writeAsBytes(bytes);
+
+                                      hideCircularDialog(context);
+                                      await Share.shareXFiles(
+                                        [XFile(imagePath.path)],
+                                        subject: "Candy Filters",
+                                      );
+                                    },
+                                    child: Image.asset(
+                                      AppImage.Share_Edit_ipad,
+                                      height: MySize.getHeight(45),
+                                    ),
                                   ),
                                 ],
                               ),
