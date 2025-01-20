@@ -7,6 +7,8 @@ import 'package:candy_filters/app/modules/edit_screen/views/textViewWidget.dart'
 import 'package:candy_filters/constant/color_constant.dart';
 import 'package:candy_filters/constant/image_constants.dart';
 import 'package:candy_filters/constant/sizeConstant.dart';
+import 'package:candy_filters/service/adService/ad_service.dart';
+import 'package:candy_filters/service/adService/banner_ads.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +18,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:scroll_screenshot/scroll_screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../../main.dart';
 import '../controllers/edit_screen_controller.dart';
 
 class EditScreenView extends GetView<EditScreenController> {
@@ -88,14 +91,21 @@ class EditScreenView extends GetView<EditScreenController> {
                       key: controller.globalKey,
                       child: Stack(
                         children: [
-                          Center(
-                            child: Image.file(
-                              File(
-                                controller.profilePhoto.value,
+                          Column(
+                            children: [
+                              Expanded(
+                                child: Image.file(
+                                  File(
+                                    controller.profilePhoto.value,
+                                  ),
+                                  height: double.infinity,
+                                  width: double.infinity,
+                                ),
                               ),
-                              height: double.infinity,
-                              width: double.infinity,
-                            ),
+                              if (controller.stickerList.any(
+                                  (element) => element.isEdit?.isTrue ?? false))
+                                Spacing.height(165)
+                            ],
                           ),
                           Container(
                             child: InkWell(
@@ -238,23 +248,26 @@ class EditScreenView extends GetView<EditScreenController> {
                                   return InkWell(
                                     onTap: () {
                                       controller.isStickerVisible.value = false;
-                                      controller.stickerList.add(TextListModel(
-                                        title: TextEditingController(
-                                            text: imagePath),
-                                        isSelected: true.obs,
-                                        isEdit: false.obs,
-                                        isImage: true,
-                                        uid: DateTime.now()
-                                            .millisecondsSinceEpoch
-                                            .toString()
-                                            .obs,
-                                        offset: Offset.zero.obs,
-                                        rotationAngle: 0.0.obs,
-                                        fontSize: 2.0.obs,
-                                        opacity: 1.0.obs,
-                                        fontFamily: "PoetsenOne".obs,
-                                        fontColor: Colors.white.obs,
-                                      ));
+                                      controller.addEmoji(callback: () {
+                                        controller.stickerList
+                                            .add(TextListModel(
+                                          title: TextEditingController(
+                                              text: imagePath),
+                                          isSelected: true.obs,
+                                          isEdit: false.obs,
+                                          isImage: true,
+                                          uid: DateTime.now()
+                                              .millisecondsSinceEpoch
+                                              .toString()
+                                              .obs,
+                                          offset: Offset.zero.obs,
+                                          rotationAngle: 0.0.obs,
+                                          fontSize: 2.0.obs,
+                                          opacity: 1.0.obs,
+                                          fontFamily: "PoetsenOne".obs,
+                                          fontColor: Colors.white.obs,
+                                        ));
+                                      });
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -470,12 +483,7 @@ class EditScreenView extends GetView<EditScreenController> {
                             Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Container(
-                                  height: MySize.getHeight(50),
-                                  decoration: BoxDecoration(
-                                    color: appTheme.white,
-                                  ),
-                                ),
+                                BannerAdsWidget(),
                                 Spacing.height(100)
                               ],
                             ),
@@ -484,7 +492,7 @@ class EditScreenView extends GetView<EditScreenController> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Container(
-                                    height: MySize.getHeight(50),
+                                    height: MySize.getHeight(70),
                                     decoration: BoxDecoration(
                                       color: appTheme.bottomColor,
                                       border: Border(
@@ -638,32 +646,36 @@ class EditScreenView extends GetView<EditScreenController> {
                                   ),
                                   InkWell(
                                     onTap: () async {
-                                      showCircularDialog(Get.context!);
-
                                       controller.stickerList.forEach((element) {
                                         element.isSelected!.value = false;
+                                        element.isEdit!.value = false;
                                       });
-                                      String? base64String =
-                                          await ScrollScreenshot
-                                              .captureAndSaveScreenshot(
-                                                  controller.globalKey);
+                                      getIt<AdService>().showInterstitialAd(
+                                          onAdDismissed: () async {
+                                        showCircularDialog(Get.context!);
+                                        String? base64String =
+                                            await ScrollScreenshot
+                                                .captureAndSaveScreenshot(
+                                                    controller.globalKey);
 
-                                      if (base64String == null) {
-                                        log("Screenshot failed.");
-                                        hideCircularDialog(Get.context!);
-                                        Fluttertoast.showToast(
-                                          msg:
-                                              "Something went wrong please try again",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          backgroundColor: Colors.black,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0,
-                                        );
-                                        return;
-                                      }
-                                      final bytes = base64Decode(base64String);
-                                      controller.downloadImage(image: bytes);
+                                        if (base64String == null) {
+                                          log("Screenshot failed.");
+                                          hideCircularDialog(Get.context!);
+                                          Fluttertoast.showToast(
+                                            msg:
+                                                "Something went wrong please try again",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            backgroundColor: Colors.black,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0,
+                                          );
+                                          return;
+                                        }
+                                        final bytes =
+                                            base64Decode(base64String);
+                                        controller.downloadImage(image: bytes);
+                                      });
                                     },
                                     child: Image.asset(
                                       AppImage.download_ipad,
@@ -672,42 +684,48 @@ class EditScreenView extends GetView<EditScreenController> {
                                   ),
                                   InkWell(
                                     onTap: () async {
-                                      showCircularDialog(Get.context!);
+                                      getIt<AdService>().showInterstitialAd(
+                                        onAdDismissed: () async {
+                                          showCircularDialog(Get.context!);
 
-                                      controller.stickerList.forEach((element) {
-                                        element.isSelected!.value = false;
-                                      });
-                                      String? base64String =
-                                          await ScrollScreenshot
-                                              .captureAndSaveScreenshot(
-                                                  controller.globalKey);
+                                          controller.stickerList
+                                              .forEach((element) {
+                                            element.isSelected!.value = false;
+                                          });
+                                          String? base64String =
+                                              await ScrollScreenshot
+                                                  .captureAndSaveScreenshot(
+                                                      controller.globalKey);
 
-                                      if (base64String == null) {
-                                        log("Screenshot failed.");
-                                        hideCircularDialog(Get.context!);
-                                        Fluttertoast.showToast(
-                                          msg:
-                                              "Something went wrong please try again",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          backgroundColor: Colors.black,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0,
-                                        );
-                                        return;
-                                      }
-                                      final bytes = base64Decode(base64String);
+                                          if (base64String == null) {
+                                            log("Screenshot failed.");
+                                            hideCircularDialog(Get.context!);
+                                            Fluttertoast.showToast(
+                                              msg:
+                                                  "Something went wrong please try again",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              backgroundColor: Colors.black,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0,
+                                            );
+                                            return;
+                                          }
+                                          final bytes =
+                                              base64Decode(base64String);
 
-                                      final directory =
-                                          await getApplicationCacheDirectory();
-                                      final imagePath = File(
-                                          '${directory.path}/${DateTime.now().millisecondsSinceEpoch}.png');
-                                      await imagePath.writeAsBytes(bytes);
+                                          final directory =
+                                              await getApplicationCacheDirectory();
+                                          final imagePath = File(
+                                              '${directory.path}/${DateTime.now().millisecondsSinceEpoch}.png');
+                                          await imagePath.writeAsBytes(bytes);
 
-                                      hideCircularDialog(context);
-                                      await Share.shareXFiles(
-                                        [XFile(imagePath.path)],
-                                        subject: "Candy Filters",
+                                          hideCircularDialog(context);
+                                          await Share.shareXFiles(
+                                            [XFile(imagePath.path)],
+                                            subject: "Candy Filters",
+                                          );
+                                        },
                                       );
                                     },
                                     child: Image.asset(

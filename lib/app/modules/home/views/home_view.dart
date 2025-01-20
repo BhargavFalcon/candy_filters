@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../service/adService/banner_ads.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
@@ -29,7 +29,7 @@ class HomeView extends GetWidget<HomeController> {
             fit: BoxFit.fill,
           ),
           Positioned(
-            bottom: MySize.getHeight(250),
+            bottom: MySize.getHeight(200),
             child: Column(
               children: [
                 Row(
@@ -39,7 +39,23 @@ class HomeView extends GetWidget<HomeController> {
                     imageWidget(
                       AppImage.camera,
                       onTap: () async {
-                        await pickImage(ImageSource.camera).then((value) {
+                        controller.openImagePicker(onTap: () async {
+                          await pickImage(ImageSource.camera).then((value) {
+                            if (value != null) {
+                              controller.profilePhoto.value = value.path;
+                              print(controller.profilePhoto.value);
+                              Get.toNamed(Routes.EDIT_SCREEN, arguments: {
+                                ArgumentConstant.pickImage:
+                                    controller.profilePhoto.value,
+                              });
+                            }
+                          });
+                        });
+                      },
+                    ),
+                    imageWidget(AppImage.gallery, onTap: () async {
+                      controller.openImagePicker(onTap: () async {
+                        await pickImage(ImageSource.gallery).then((value) {
                           if (value != null) {
                             controller.profilePhoto.value = value.path;
                             print(controller.profilePhoto.value);
@@ -49,18 +65,6 @@ class HomeView extends GetWidget<HomeController> {
                             });
                           }
                         });
-                      },
-                    ),
-                    imageWidget(AppImage.gallery, onTap: () async {
-                      await pickImage(ImageSource.gallery).then((value) {
-                        if (value != null) {
-                          controller.profilePhoto.value = value.path;
-                          print(controller.profilePhoto.value);
-                          Get.toNamed(Routes.EDIT_SCREEN, arguments: {
-                            ArgumentConstant.pickImage:
-                                controller.profilePhoto.value,
-                          });
-                        }
                       });
                     }),
                     imageWidget(
@@ -83,9 +87,11 @@ class HomeView extends GetWidget<HomeController> {
                     imageWidget(
                       AppImage.moreApps,
                       onTap: () {
-                        launchUrl(Uri.parse(Platform.isIOS
-                            ? ArgumentConstant.iosAccountLink
-                            : ArgumentConstant.androidAccountLink));
+                        urlLauncher(
+                            url: Uri.parse(Platform.isIOS
+                                ? ArgumentConstant.iosAccountLink
+                                : ArgumentConstant.androidAccountLink),
+                            name: "Store");
                       },
                     ),
                     imageWidget(
@@ -100,6 +106,10 @@ class HomeView extends GetWidget<HomeController> {
             ),
           )
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+        child: BannerAdsWidget(),
       ),
     );
   }

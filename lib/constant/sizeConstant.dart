@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gif_view/gif_view.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'color_constant.dart';
 import 'image_constants.dart';
 
@@ -271,6 +271,7 @@ class CircularDialog {
       context: context,
       barrierColor: Colors.transparent.withOpacity(0.1),
       barrierDismissible: false,
+      useSafeArea: false,
       builder: (BuildContext context) {
         return WillPopScope(
           onWillPop: () async => false, // Prevent back button press
@@ -283,7 +284,7 @@ class CircularDialog {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(MySize.getHeight(10)),
-                    child: GifView.asset(
+                    child: Image.asset(
                       AppImage.loadGif,
                       height: MySize.getHeight(100),
                     ),
@@ -305,4 +306,39 @@ class CircularDialog {
       },
     );
   }
+}
+
+urlLauncher({required Uri url, String name = "", String? error}) async {
+  try {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalNonBrowserApplication,
+    )) {
+      launchUrl(url, mode: LaunchMode.externalApplication);
+    }
+  } catch (e) {
+    print(e);
+    await getDialog(
+        title: "Error", desc: error ?? "Unable to find $name in your device");
+  }
+}
+
+getDialog(
+    {String title = "Error",
+    String desc = "Some Thing went wrong....",
+    Callback? onTap}) {
+  return Get.defaultDialog(
+      barrierDismissible: false,
+      title: title,
+      content: Center(
+        child: Text(desc, textAlign: TextAlign.center),
+      ),
+      buttonColor: appTheme.primaryTheme,
+      textConfirm: "Ok",
+      confirmTextColor: Colors.white,
+      onConfirm: (isNullEmptyOrFalse(onTap))
+          ? () {
+              Get.back();
+            }
+          : onTap);
 }

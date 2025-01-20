@@ -12,6 +12,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:saver_gallery/saver_gallery.dart';
 
 import '../../../../constant/image_constants.dart';
+import '../../../../main.dart';
+import '../../../../service/adService/ad_service.dart';
 
 class EditScreenController extends GetxController {
   RxString profilePhoto = "".obs;
@@ -186,6 +188,20 @@ class EditScreenController extends GetxController {
       fontSize: 16.0,
     );
     print(result.toString());
+  }
+
+  addEmoji({required VoidCallback callback}) {
+    if (box.read("emojiSelectCount") == 3) {
+      box.remove("emojiSelectCount");
+      getIt<AdService>().showInterstitialAd(
+        onAdDismissed: callback,
+      );
+    } else {
+      int emojiSelectCount = box.read("emojiSelectCount") ?? 0;
+      emojiSelectCount++;
+      box.write("emojiSelectCount", emojiSelectCount);
+      callback.call();
+    }
   }
 }
 

@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:candy_filters/main.dart';
+import 'package:candy_filters/service/adService/ad_service.dart';
 import 'package:get/get.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
@@ -17,13 +21,17 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
+  openImagePicker({required VoidCallback onTap}) {
+    if (box.read("imagePickCount") == 1) {
+      box.remove("imagePickCount");
+      getIt<AdService>().showInterstitialAd(
+        onAdDismissed: onTap,
+      );
+    } else {
+      int imagePickCount = box.read("imagePickCount") ?? 0;
+      imagePickCount++;
+      box.write("imagePickCount", imagePickCount);
+      onTap.call();
+    }
   }
 }

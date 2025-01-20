@@ -2,7 +2,7 @@ import 'package:candy_filters/constant/sizeConstant.dart';
 import 'package:flutter/material.dart';
 
 class BaseTheme {
-  Color get primaryTheme => fromHex("#A314D5");
+  Color get primaryTheme => fromHex("#F9A8B4");
   Color get primaryThemeDark => fromHex("#631380");
   Color get greyColor => fromHex("#E7E7E7");
   Color get lightGreyColor => fromHex("#BDBFC4");

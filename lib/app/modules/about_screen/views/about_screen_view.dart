@@ -4,8 +4,8 @@ import 'package:candy_filters/constant/image_constants.dart';
 import 'package:candy_filters/constant/sizeConstant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../service/adService/banner_ads.dart';
 import '../controllers/about_screen_controller.dart';
 
 class AboutScreenView extends GetView<AboutScreenController> {
@@ -45,14 +45,14 @@ class AboutScreenView extends GetView<AboutScreenController> {
               ),
             ),
             Positioned(
-              top: MySize.getHeight(320),
+              top: MySize.getHeight(280),
               child: Image.asset(
                 AppImage.appIcon,
                 height: MySize.getHeight(160),
               ),
             ),
             Positioned(
-              top: MySize.getHeight(500),
+              top: MySize.getHeight(460),
               child: Column(
                 children: [
                   Text(
@@ -86,49 +86,65 @@ class AboutScreenView extends GetView<AboutScreenController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  InkWell(
+                  imageWidget(
+                    image: AppImage.facebook,
                     onTap: () {
-                      launchUrl(
-                          Uri.parse("http://facebook.com/falconsolutions/"));
+                      urlLauncher(
+                          url:
+                              Uri.parse("http://facebook.com/falconsolutions/"),
+                          name: "Facebook");
                     },
-                    child: imageWidget(image: AppImage.facebook),
                   ),
                   SizedBox(
                     width: MySize.getWidth(20),
                   ),
-                  InkWell(
-                      onTap: () {
-                        launchUrl(Uri.parse("https://twitter.com/FalconSolCo"));
-                      },
-                      child: imageWidget(image: AppImage.twitter)),
+                  imageWidget(
+                    image: AppImage.twitter,
+                    onTap: () {
+                      urlLauncher(
+                          url: Uri.parse("https://twitter.com/FalconSolCo"),
+                          name: "Twitter");
+                    },
+                  ),
                   SizedBox(
                     width: MySize.getWidth(20),
                   ),
-                  InkWell(
-                      onTap: () {
-                        launchUrl(Uri.parse(
-                            "https://www.linkedin.com/company/falcon-solutions-m-s"));
-                      },
-                      child: imageWidget(image: AppImage.linkedin))
+                  imageWidget(
+                    image: AppImage.linkedin,
+                    onTap: () {
+                      urlLauncher(
+                          url: Uri.parse(
+                              "https://www.linkedin.com/company/falcon-solutions-m-s"),
+                          name: "Linkedin");
+                    },
+                  )
                 ],
               ),
             ),
           ],
         ),
+        bottomNavigationBar: Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+          child: BannerAdsWidget(),
+        ),
       );
     });
   }
 
-  Widget imageWidget({required String image}) {
+  Widget imageWidget({required String image, required VoidCallback onTap}) {
     return SizedBox(
       height: 150,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
-          Image.asset(
-            image,
-            height: MySize.getHeight(70),
-            width: MySize.getHeight(70),
+          InkWell(
+            onTap: onTap,
+            child: Image.asset(
+              image,
+              height: MySize.getHeight(70),
+              width: MySize.getHeight(70),
+            ),
           ),
           Positioned(
             bottom: 0,

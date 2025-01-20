@@ -1,30 +1,157 @@
 PODS:
+  - app_tracking_transparency (0.0.1):
+    - Flutter
+  - AppLovinSDK (12.6.1)
   - Flutter (1.0.0)
+  - fluttertoast (0.0.2):
+    - Flutter
+    - Toast
+  - gdpr_dialog_flutter (0.0.1):
+    - Flutter
+    - Google-Mobile-Ads-SDK
+  - gma_mediation_applovin (1.2.0):
+    - Flutter
+    - GoogleMobileAdsMediationAppLovin (~> 12.6.1.0)
+  - gma_mediation_unity (1.1.0):
+    - Flutter
+    - GoogleMobileAdsMediationUnity (~> 4.12.3.1)
+  - Google-Mobile-Ads-SDK (11.10.0):
+    - GoogleUserMessagingPlatform (>= 1.1)
+  - google_mobile_ads (5.2.0):
+    - Flutter
+    - Google-Mobile-Ads-SDK (~> 11.10.0)
+    - webview_flutter_wkwebview
+  - GoogleMobileAdsMediationAppLovin (12.6.1.0):
+    - AppLovinSDK (= 12.6.1)
+    - Google-Mobile-Ads-SDK (~> 11.0)
+  - GoogleMobileAdsMediationUnity (4.12.3.1):
+    - Google-Mobile-Ads-SDK (~> 11.0)
+    - UnityAds (= 4.12.3)
+  - GoogleUserMessagingPlatform (2.7.0)
+  - image_picker_ios (0.0.1):
+    - Flutter
+  - package_info_plus (0.4.5):
+    - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - sqflite_darwin (0.0.4):
+  - permission_handler_apple (9.3.0):
+    - Flutter
+  - rate_my_app (2.3.0):
+    - Flutter
+    - FlutterMacOS
+  - saver_gallery (0.0.1):
+    - Flutter
+  - scroll_screenshot (0.0.1):
+    - Flutter
+  - share_plus (0.0.1):
+    - Flutter
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - Toast (4.1.1)
+  - UnityAds (4.12.3)
+  - url_launcher_ios (0.0.1):
+    - Flutter
+  - webview_flutter_wkwebview (0.0.1):
     - Flutter
     - FlutterMacOS
 
 DEPENDENCIES:
+  - app_tracking_transparency (from `.symlinks/plugins/app_tracking_transparency/ios`)
   - Flutter (from `Flutter`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - gdpr_dialog_flutter (from `.symlinks/plugins/gdpr_dialog_flutter/ios`)
+  - gma_mediation_applovin (from `.symlinks/plugins/gma_mediation_applovin/ios`)
+  - gma_mediation_unity (from `.symlinks/plugins/gma_mediation_unity/ios`)
+  - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
-  - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - rate_my_app (from `.symlinks/plugins/rate_my_app/darwin`)
+  - saver_gallery (from `.symlinks/plugins/saver_gallery/ios`)
+  - scroll_screenshot (from `.symlinks/plugins/scroll_screenshot/ios`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
+
+SPEC REPOS:
+  trunk:
+    - AppLovinSDK
+    - Google-Mobile-Ads-SDK
+    - GoogleMobileAdsMediationAppLovin
+    - GoogleMobileAdsMediationUnity
+    - GoogleUserMessagingPlatform
+    - Toast
+    - UnityAds
 
 EXTERNAL SOURCES:
+  app_tracking_transparency:
+    :path: ".symlinks/plugins/app_tracking_transparency/ios"
   Flutter:
     :path: Flutter
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
+  gdpr_dialog_flutter:
+    :path: ".symlinks/plugins/gdpr_dialog_flutter/ios"
+  gma_mediation_applovin:
+    :path: ".symlinks/plugins/gma_mediation_applovin/ios"
+  gma_mediation_unity:
+    :path: ".symlinks/plugins/gma_mediation_unity/ios"
+  google_mobile_ads:
+    :path: ".symlinks/plugins/google_mobile_ads/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
-  sqflite_darwin:
-    :path: ".symlinks/plugins/sqflite_darwin/darwin"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+  rate_my_app:
+    :path: ".symlinks/plugins/rate_my_app/darwin"
+  saver_gallery:
+    :path: ".symlinks/plugins/saver_gallery/ios"
+  scroll_screenshot:
+    :path: ".symlinks/plugins/scroll_screenshot/ios"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 SPEC CHECKSUMS:
+  app_tracking_transparency: 3d84f147f67ca82d3c15355c36b1fa6b66ca7c92
+  AppLovinSDK: a892bbeff744749a8121bd863aa1399f7eef6ef1
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
+  fluttertoast: 76fea30fcf04176325f6864c87306927bd7d2038
+  gdpr_dialog_flutter: af586a9b0f1b1882216375b873f6e08faac08f26
+  gma_mediation_applovin: ac2c0c8c69fdcef0fa682e55e8d480b1b64fa1c9
+  gma_mediation_unity: 0e1e5488bc53190d5d176a99681d35c4ccf85b6c
+  Google-Mobile-Ads-SDK: 13e6e98edfd78ad8d8a791edb927658cc260a56f
+  google_mobile_ads: dc2b2a5884bef7ab2b4ff30022a513df5373e208
+  GoogleMobileAdsMediationAppLovin: 767903aa18db97cc810148bbc3f017a09059e9d1
+  GoogleMobileAdsMediationUnity: 05574d8329a5092d1a1cb0344727e68d30103412
+  GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
+  image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
+  package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
+  rate_my_app: 567848e885b804d65eb9443f96e9fc2c30a06abb
+  saver_gallery: af2d0c762dafda254e0ad025ef0dabd6506cd490
+  scroll_screenshot: 1dd71aad3669b467fb43aafdb0ab4b1015684b86
+  share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
+  shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
+  Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
+  UnityAds: 32596c2f76856d643b50d3da51c47a552b80d5a4
+  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
+  webview_flutter_wkwebview: 44d4dee7d7056d5ad185d25b38404436d56c547c
 
-PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+PODFILE CHECKSUM: 51e66ed16a2dc5e1f099b87aa590087701ded8f6
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
