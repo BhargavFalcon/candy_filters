@@ -31,6 +31,9 @@ Future<void> main() async {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       theme: ThemeData(
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
         bottomSheetTheme: BottomSheetThemeData(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusDirectional.circular(0),
